@@ -3,7 +3,7 @@
 import { useTheme } from "next-themes";
 import { Sun, Moon, Monitor } from "lucide-react";
 import { useEffect, useState } from "react";
-import { cn } from "@/lib/utils";
+import styles from "@/styles/theme-toggle.module.css";
 
 export default function ThemeToggle() {
     const { theme, setTheme } = useTheme();
@@ -14,40 +14,31 @@ export default function ThemeToggle() {
     }, []);
 
     if (!mounted) {
-        return <div className="p-2 w-10 h-10 bg-gray-100 dark:bg-zinc-800 rounded-lg animate-pulse" />;
+        return <div className={styles.skeleton} />;
     }
 
     return (
-        <div className="flex items-center gap-1 p-1 bg-gray-100 dark:bg-zinc-900 rounded-xl border border-gray-200 dark:border-zinc-800">
+        <div className={styles.container}>
             <button
                 onClick={() => setTheme("light")}
-                className={cn(
-                    "p-2 rounded-lg transition-all",
-                    theme === "light" ? "bg-white text-indigo-600 shadow-sm" : "text-gray-500 hover:text-gray-900"
-                )}
+                className={`${styles.button} ${theme === "light" ? styles.activeLight : ""}`}
                 title="Light Mode"
             >
-                <Sun className="w-4 h-4" />
+                <Sun className={styles.icon} />
             </button>
             <button
                 onClick={() => setTheme("dark")}
-                className={cn(
-                    "p-2 rounded-lg transition-all",
-                    theme === "dark" ? "bg-zinc-800 text-indigo-400 shadow-sm" : "text-zinc-500 hover:text-zinc-300"
-                )}
+                className={`${styles.button} ${theme === "dark" ? styles.activeDark : ""}`}
                 title="Dark Mode"
             >
-                <Moon className="w-4 h-4" />
+                <Moon className={styles.icon} />
             </button>
             <button
                 onClick={() => setTheme("system")}
-                className={cn(
-                    "p-2 rounded-lg transition-all",
-                    theme === "system" ? "bg-white dark:bg-zinc-800 text-indigo-600 dark:text-indigo-400 shadow-sm" : "text-gray-500 dark:text-zinc-500"
-                )}
+                className={`${styles.button} ${theme === "system" ? styles.activeSystem : ""}`}
                 title="System Theme"
             >
-                <Monitor className="w-4 h-4" />
+                <Monitor className={styles.icon} />
             </button>
         </div>
     );

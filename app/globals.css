@@ -1,31 +1,62 @@
-@import "tailwindcss";
-
-@theme {
-  --color-zinc-950: #09090b;
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-}
-
-@variant dark (&:where(.dark, .dark *));
-
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --zinc-50: #fafafa;
+  --zinc-100: #f4f4f5;
+  --zinc-200: #e4e4e7;
+  --zinc-300: #d4d4d8;
+  --zinc-400: #a1a1aa;
+  --zinc-500: #71717a;
+  --zinc-600: #52525b;
+  --zinc-700: #3f3f46;
+  --zinc-800: #27272a;
+  --zinc-900: #18181b;
+  --zinc-950: #09090b;
+  --indigo-50: #eef2ff;
+  --indigo-100: #e0e7ff;
+  --indigo-400: #818cf8;
+  --indigo-500: #6366f1;
+  --indigo-600: #4f46e5;
+  --indigo-900: #312e81;
+  --indigo-950: #1e1b4b;
+  --red-50: #fef2f2;
+  --red-400: #f87171;
+  --red-500: #ef4444;
+  --red-950: #450a0a;
 }
 
-.dark {
+[data-theme='dark'] {
   --background: #09090b;
   --foreground: #ededed;
 }
 
 body {
+  margin: 0;
+  padding: 0;
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.glass {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+* {
+  box-sizing: border-box;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--zinc-300);
+  border-radius: 10px;
+}
+
+[data-theme='dark'] .custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--zinc-800);
 }

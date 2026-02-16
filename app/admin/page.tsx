@@ -7,8 +7,9 @@ import Preview from "@/components/Preview";
 import ThemeToggle from "@/components/ThemeToggle";
 import { Link } from "@/types";
 import { Smartphone, Layout, User, LogOut } from "lucide-react";
+import styles from "@/styles/admin.module.css";
 
-export default function Home() {
+export default function AdminPage() {
     const [links, setLinks] = useState<Link[]>([]);
     const [isLoaded, setIsLoaded] = useState(false);
     const router = useRouter();
@@ -44,53 +45,49 @@ export default function Home() {
     if (!isLoaded) return null;
 
     return (
-        <main className="flex h-screen w-screen overflow-hidden bg-white dark:bg-zinc-950 text-gray-900 dark:text-zinc-100 transition-colors duration-300">
+        <main className={styles.main}>
             {/* Left Side: Editor */}
-            <section className="flex-1 h-full overflow-y-auto border-r border-gray-200 dark:border-zinc-800 p-8 pt-6">
-                <div className="max-w-2xl mx-auto space-y-8">
-                    <header className="flex items-center justify-between sticky top-0 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md py-4 z-20">
-                        <div className="flex items-center gap-2">
-                            <div className="p-2 bg-indigo-600 rounded-lg shadow-lg shadow-indigo-500/20">
-                                <Layout className="w-5 h-5 text-white" />
+            <section className={styles.editorSection}>
+                <div className={styles.editorContent}>
+                    <header className={styles.header}>
+                        <div className={styles.brand}>
+                            <div className={styles.logoBox}>
+                                <Layout className={styles.logoIcon} />
                             </div>
-                            <h1 className="text-xl font-bold tracking-tight">Admin <span className="text-indigo-600">Panel</span></h1>
+                            <h1 className={styles.title}>Admin <span className={styles.titleAccent}>Panel</span></h1>
                         </div>
 
-                        <div className="flex items-center gap-3">
+                        <div className={styles.actions}>
                             <ThemeToggle />
-                            <div className="h-6 w-[1px] bg-gray-200 dark:bg-zinc-800 mx-1" />
+                            <div className={styles.divider} />
                             <button
                                 onClick={handleLogout}
-                                className="p-2 text-gray-400 hover:text-red-500 dark:hover:text-red-400 transition-colors rounded-lg hover:bg-red-50 dark:hover:bg-red-950/30"
+                                className={styles.logoutButton}
                                 title="Sign Out"
                             >
-                                <LogOut className="w-5 h-5" />
+                                <LogOut size={20} />
                             </button>
                         </div>
                     </header>
 
-                    <div className="space-y-6">
-                        <div className="p-6 bg-white dark:bg-zinc-900 rounded-xl border border-gray-200 dark:border-zinc-800 shadow-sm">
-                            <div className="flex items-center gap-3 mb-6">
-                                <User className="w-5 h-5 text-indigo-600" />
-                                <h2 className="text-lg font-semibold">Profile Settings</h2>
+                    <div className={styles.section}>
+                        <div className={styles.settingsCard}>
+                            <div className={styles.sectionHeader}>
+                                <User className={styles.sectionIcon} />
+                                <h2 className={styles.sectionTitle}>Profile Settings</h2>
                             </div>
-                            <div className="space-y-4">
-                                <p className="text-sm text-gray-500 italic">Profile customization coming soon...</p>
-                            </div>
+                            <Editor links={links} onChange={setLinks} />
                         </div>
-
-                        <Editor links={links} setLinks={setLinks} />
                     </div>
                 </div>
             </section>
 
             {/* Right Side: Preview */}
-            <section className="hidden lg:flex flex-1 h-full items-center justify-center bg-gray-100 dark:bg-[#111] border-l border-gray-200 dark:border-gray-800">
-                <div className="relative group">
-                    <div className="absolute -top-12 left-1/2 -translate-x-1/2 flex items-center gap-2 text-sm font-medium text-gray-400">
-                        <Smartphone className="w-4 h-4" />
-                        Live Preview
+            <section className={styles.previewSection}>
+                <div style={{ position: "relative" }}>
+                    <div style={{ position: "absolute", top: "-2.5rem", left: "50%", transform: "translateX(-50%)", display: "flex", alignItems: "center", gap: "0.5rem", color: "var(--zinc-400)", fontSize: "0.875rem", fontWeight: "600" }}>
+                        <Smartphone size={16} />
+                        Mobile Preview
                     </div>
                     <Preview links={links} />
                 </div>

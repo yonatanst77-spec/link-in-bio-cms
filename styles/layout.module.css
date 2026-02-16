@@ -1,0 +1,11 @@
+.body {
+    min-height: 100vh;
+}
+
+.selection {
+    background-color: var(--indigo-100);
+}
+
+:global([data-theme='dark']) .selection {
+    background-color: rgba(79, 70, 229, 0.4);
+}

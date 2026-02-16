@@ -1,108 +1,95 @@
 "use client";
 
+import { Reorder } from "framer-motion";
+import { Trash2, GripVertical, Plus } from "lucide-react";
 import { Link } from "@/types";
-import { Reorder, motion, AnimatePresence } from "framer-motion";
-import { GripVertical, Trash2, Plus, ExternalLink, Link as LinkIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
+import styles from "@/styles/editor.module.css";
 
 interface EditorProps {
     links: Link[];
-    setLinks: (links: Link[]) => void;
+    onChange: (links: Link[]) => void;
 }
 
-export default function Editor({ links, setLinks }: EditorProps) {
+export default function Editor({ links, onChange }: EditorProps) {
     const addLink = () => {
         const newLink: Link = {
-            id: Date.now().toString(),
-            title: "New Link",
-            url: "https://",
+            id: Math.random().toString(36).substr(2, 9),
+            title: "",
+            url: "",
             icon: "link",
         };
-        setLinks([...links, newLink]);
+        onChange([...links, newLink]);
     };
 
     const updateLink = (id: string, field: keyof Link, value: string) => {
-        setLinks(links.map((link) => (link.id === id ? { ...link, [field]: value } : link)));
+        const updatedLinks = links.map((link) =>
+            link.id === id ? { ...link, [field]: value } : link
+        );
+        onChange(updatedLinks);
     };
 
-    const deleteLink = (id: string) => {
-        setLinks(links.filter((link) => link.id !== id));
+    const removeLink = (id: string) => {
+        onChange(links.filter((link) => link.id !== id));
     };
 
     return (
-        <div className="space-y-6">
-            <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                    <LinkIcon className="w-5 h-5 text-indigo-600" />
-                    <h2 className="text-lg font-semibold">Manage Links</h2>
-                </div>
-                <button
-                    onClick={addLink}
-                    className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-colors font-medium text-sm"
-                >
-                    <Plus className="w-4 h-4" />
-                    Add Link
-                </button>
-            </div>
+        <div className={styles.container}>
+            <Reorder.Group axis="y" values={links} onReorder={onChange} className={styles.container}>
+                {links.map((link) => (
+                    <Reorder.Item
+                        key={link.id}
+                        value={link}
+                        className={styles.card}
+                    >
+                        <button className={styles.grip}>
+                            <GripVertical size={20} />
+                        </button>
 
-            <Reorder.Group
-                axis="y"
-                values={links}
-                onReorder={setLinks}
-                className="space-y-3"
-            >
-                <AnimatePresence mode="popLayout">
-                    {links.map((link) => (
-                        <Reorder.Item
-                            key={link.id}
-                            value={link}
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.95 }}
-                            className="bg-white dark:bg-zinc-900 p-4 rounded-xl border border-gray-200 dark:border-zinc-800 shadow-sm flex items-start gap-4 transition-shadow hover:shadow-md"
-                        >
-                            <div className="cursor-grab active:cursor-grabbing p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 mt-1">
-                                <GripVertical className="w-5 h-5" />
-                            </div>
-
-                            <div className="flex-1 space-y-3">
+                        <div className={styles.linkInfo}>
+                            <div className={styles.inputField}>
+                                <label className={styles.label}>Title</label>
                                 <input
                                     type="text"
                                     value={link.title}
                                     onChange={(e) => updateLink(link.id, "title", e.target.value)}
-                                    placeholder="Link Title"
-                                    className="w-full text-sm font-semibold bg-transparent border-none focus:ring-0 p-0 placeholder:text-gray-400"
+                                    placeholder="e.g. GitHub"
+                                    className={styles.input}
                                 />
-                                <div className="flex items-center gap-2 group/input">
-                                    <LinkIcon className="w-3.5 h-3.5 text-gray-400" />
-                                    <input
-                                        type="text"
-                                        value={link.url}
-                                        onChange={(e) => updateLink(link.id, "url", e.target.value)}
-                                        placeholder="URL"
-                                        className="w-full text-xs text-indigo-600 dark:text-indigo-400 bg-transparent border-none focus:ring-0 p-0 placeholder:text-gray-400"
-                                    />
-                                    <a href={link.url} target="_blank" rel="noopener noreferrer" className="opacity-0 group-hover/input:opacity-100 transition-opacity">
-                                        <ExternalLink className="w-3.5 h-3.5 text-gray-400 hover:text-indigo-600" />
-                                    </a>
-                                </div>
                             </div>
 
-                            <button
-                                onClick={() => deleteLink(link.id)}
-                                className="p-2 text-gray-400 hover:text-red-500 transition-colors"
-                                title="Delete Link"
-                            >
-                                <Trash2 className="w-4 h-4" />
-                            </button>
-                        </Reorder.Item>
-                    ))}
-                </AnimatePresence>
+                            <div className={styles.inputField}>
+                                <label className={styles.label}>URL</label>
+                                <input
+                                    type="text"
+                                    value={link.url}
+                                    onChange={(e) => updateLink(link.id, "url", e.target.value)}
+                                    placeholder="https://"
+                                    className={styles.urlInput}
+                                />
+                            </div>
+                        </div>
+
+                        <button
+                            onClick={() => removeLink(link.id)}
+                            className={styles.deleteButton}
+                        >
+                            <Trash2 size={18} />
+                        </button>
+                    </Reorder.Item>
+                ))}
             </Reorder.Group>
 
+            <button
+                onClick={addLink}
+                className={styles.addButton}
+            >
+                <Plus size={20} />
+                Add Link
+            </button>
+
             {links.length === 0 && (
-                <div className="text-center py-12 border-2 border-dashed border-gray-200 dark:border-gray-800 rounded-xl">
-                    <p className="text-gray-500 text-sm">No links added yet. Click "Add Link" to get started.</p>
+                <div className={styles.emptyState}>
+                    <p className={styles.emptyText}>No links added yet. Click "Add Link" to get started.</p>
                 </div>
             )}
         </div>

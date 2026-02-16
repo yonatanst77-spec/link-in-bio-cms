@@ -1,0 +1,88 @@
+.container {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem;
+    background-color: var(--zinc-100);
+    border-radius: 0.75rem;
+    border: 1px solid var(--zinc-200);
+}
+
+:global([data-theme='dark']) .container {
+    background-color: var(--zinc-900);
+    border-color: var(--zinc-800);
+}
+
+.button {
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    transition: all 0.2s;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--zinc-500);
+}
+
+.button:hover {
+    color: var(--zinc-900);
+}
+
+:global([data-theme='dark']) .button:hover {
+    color: var(--zinc-300);
+}
+
+.activeLight {
+    background-color: #ffffff;
+    color: var(--indigo-600);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.activeDark {
+    background-color: var(--zinc-800);
+    color: var(--indigo-400);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.activeSystem {
+    background-color: #ffffff;
+    color: var(--indigo-600);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+:global([data-theme='dark']) .activeSystem {
+    background-color: var(--zinc-800);
+    color: var(--indigo-400);
+}
+
+.skeleton {
+    padding: 0.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    background-color: var(--zinc-100);
+    border-radius: 0.5rem;
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+:global([data-theme='dark']) .skeleton {
+    background-color: var(--zinc-800);
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: .5;
+    }
+}
+
+.icon {
+    width: 1rem;
+    height: 1rem;
+}

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
+import styles from "@/styles/layout.module.css";
 
 export const metadata: Metadata = {
     title: "Link-in-Bio CMS",
@@ -14,9 +15,11 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" suppressHydrationWarning>
-            <body className="antialiased font-sans selection:bg-indigo-100 dark:selection:bg-indigo-900/40">
+            <body className={styles.body}>
                 <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-                    {children}
+                    <div className={styles.selection}>
+                        {children}
+                    </div>
                 </ThemeProvider>
             </body>
         </html>
