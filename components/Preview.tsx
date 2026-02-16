@@ -10,13 +10,13 @@ interface PreviewProps {
 
 export default function Preview({ links }: PreviewProps) {
     return (
-        <div className="relative w-[320px] h-[640px] bg-white dark:bg-black rounded-[48px] border-[12px] border-gray-800 dark:border-gray-900 shadow-2xl overflow-hidden">
+        <div className="relative w-[320px] h-[640px] bg-white dark:bg-zinc-950 rounded-[48px] border-[12px] border-gray-800 dark:border-zinc-900 shadow-2xl overflow-hidden">
             {/* Phone Specific Elements */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-gray-800 dark:bg-gray-900 rounded-b-2xl z-10" />
-            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-24 h-1 bg-gray-300 dark:bg-gray-800 rounded-full z-10" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-gray-800 dark:bg-zinc-900 rounded-b-2xl z-10" />
+            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-24 h-1 bg-gray-300 dark:bg-zinc-800 rounded-full z-10" />
 
             {/* Screen Content */}
-            <div className="h-full overflow-y-auto px-6 py-12 bg-gradient-to-b from-indigo-50 to-white dark:from-indigo-950/20 dark:to-black custom-scrollbar">
+            <div className="h-full overflow-y-auto px-6 py-12 bg-gradient-to-b from-indigo-50 to-white dark:from-indigo-950/20 dark:to-zinc-950 custom-scrollbar">
                 <div className="flex flex-col items-center text-center space-y-4 mb-10">
                     <div className="w-24 h-24 rounded-full bg-indigo-600 p-1 ring-4 ring-indigo-500/20">
                         <div className="w-full h-full rounded-full bg-white dark:bg-gray-800 flex items-center justify-center">

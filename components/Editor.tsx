@@ -59,7 +59,7 @@ export default function Editor({ links, setLinks }: EditorProps) {
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.95 }}
-                            className="bg-white dark:bg-[#111] p-4 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm flex items-start gap-4 transition-shadow hover:shadow-md"
+                            className="bg-white dark:bg-zinc-900 p-4 rounded-xl border border-gray-200 dark:border-zinc-800 shadow-sm flex items-start gap-4 transition-shadow hover:shadow-md"
                         >
                             <div className="cursor-grab active:cursor-grabbing p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 mt-1">
                                 <GripVertical className="w-5 h-5" />
